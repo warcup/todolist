@@ -10,6 +10,10 @@ node_modules/
 *.config
 *.ad.config
 
+# Allow example config files
+!*.config.example
+!*.ad.config.example
+
 # Logs
 logs
 *.log

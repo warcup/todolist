@@ -1,0 +1,14 @@
+{
+  "ad": {
+    "url": "ldap://your-ad-server:389",
+    "baseDN": "dc=your-domain,dc=com",
+    "username": "admin@your-domain.com",
+    "password": "your-password",
+    "filter": "(sAMAccountName={{username}})",
+    "searchBase": "ou=Users,dc=your-domain,dc=com",
+    "searchFilter": "(sAMAccountName={{username}})",
+    "usernameField": "sAMAccountName",
+    "emailField": "mail",
+    "displayNameField": "displayName"
+  }
+}
