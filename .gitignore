@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Node.js binaries (local installation)
+bin/
+
 # Environment variables
 .env
 .env.local
@@ -61,6 +64,17 @@ Desktop.ini
 # Backup files
 *.bak
 *.old
+*.backup
+
+# Test files
+test/
+test-archive/
+check-subordinates.js
+clean-database.js
+test-subordinates.js
+
+# Package bundling files
+package-bundle.js
 
 # Package manager files
 package-lock.json
