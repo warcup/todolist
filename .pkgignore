@@ -1,0 +1,13 @@
+# 忽略的文件和目录
+node_modules/
+test/
+bin/
+*.log
+.DS_Store
+*.bak
+*.tmp
+.git/
+.gitignore
+.npmignore
+*.zip
+*.tar.gz
