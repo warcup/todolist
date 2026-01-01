@@ -75,7 +75,7 @@ module.exports = {
     ad: adConfig,
     // JWT配置
     jwt: {
-        secret: process.env.JWT_SECRET || 'vg0xlwU_vng4P1gmV9jAEsdfd',
+        secret: process.env.JWT_SECRET || 'you_code',
         expiresIn: process.env.JWT_EXPIRES_IN || '48h'
     },
     // 服务器配置
