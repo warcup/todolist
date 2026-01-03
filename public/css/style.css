@@ -750,24 +750,59 @@ body {
 .mobile-only { display: none; }
 
 .settings-layout { display: grid; grid-template-columns: 220px 1fr; gap: 20px; align-items: stretch; }
-.settings-nav { background: var(--glass-card); border-radius: 16px; padding: 16px; position: sticky; top: 20px; height: 100%; }
+.settings-nav { background: var(--glass-card); border-radius: 16px; padding: 16px; position: sticky; top: 20px; }
+.settings-select-mobile { display: none; width: 100%; padding: 10px 12px; border: 1px solid rgba(0,0,0,0.1); border-radius: 10px; background: white; font-size: 0.92rem; color: #333; cursor: pointer; margin-bottom: 10px; }
 .settings-nav-title { font-size: 0.85rem; color: #666; margin-bottom: 10px; }
 .settings-nav a { display: block; padding: 8px 10px; border-radius: 10px; color: #333; text-decoration: none; font-size: 0.92rem; }
 .settings-nav a:hover { background: rgba(0,0,0,0.06); }
 .settings-nav a.active { background: rgba(0,0,0,0.08); font-weight: 600; }
 .settings-section { scroll-margin-top: 20px; }
-#view-settings { height: 100%; }
-#view-settings .settings-layout { height: 100%; min-height: 100%; }
-#view-settings .settings-nav,
-#view-settings .settings-content { height: 100%; }
-#view-settings .settings-section { min-height: 100%; }
-
-@media (max-width: 900px) {
-    .settings-layout { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: 100%; }
-    .settings-nav { position: static; display: flex; flex-wrap: nowrap; gap: 8px; overflow-x: auto; padding: 10px; height: auto; }
+#view-settings { height: auto; }
+#view-settings .settings-layout { height: auto; min-height: auto; }
+/* 桌面端设置 */
+@media (min-width: 901px) {
+    #view-settings .settings-nav,
     #view-settings .settings-content { height: 100%; }
     #view-settings .settings-section { min-height: 100%; }
-    .settings-nav a { white-space: nowrap; }
+}
+
+@media (max-width: 900px) {
+    .settings-layout { grid-template-columns: 1fr; grid-template-rows: auto auto; height: auto; }
+    .settings-nav { position: sticky; top: 0; z-index: 100; display: block; padding: 10px; height: auto; background: white; border-bottom: 1px solid rgba(0,0,0,0.1); }
+    .settings-select-mobile { display: block; }
+    .settings-nav a { display: none; }
+    #view-settings .settings-content { height: auto; overflow-y: auto; }
+    #view-settings .settings-section { min-height: auto; }
+    .settings-nav-title { display: none; }
+}
+
+/* 为移动设备优化滚动条 */
+@media (max-width: 900px) {
+    .settings-nav::-webkit-scrollbar {
+        height: 4px;
+    }
+    
+    .settings-nav::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,0.2);
+        border-radius: 2px;
+    }
+    
+    .settings-nav::-webkit-scrollbar-track {
+        background: rgba(0,0,0,0.05);
+    }
+    
+    /* 确保设置页面在移动端完整显示 */
+    #view-settings.view-container.active {
+        overflow-y: auto;
+        height: auto;
+        min-height: auto;
+    }
+    
+    #view-settings .settings-content {
+        height: auto;
+        min-height: auto;
+        overflow-y: visible;
+    }
 }
 
 .checklist-layout { display: grid; grid-template-columns: 220px 1fr; gap: 20px; height: 100%; min-width: 0; overflow: hidden; }

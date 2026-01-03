@@ -155,6 +155,12 @@ class TodoApp {
                 adminBtn.style.display = this.isAdmin ? 'block' : 'none';
             }
             
+            // 控制共同空闲时间按钮显示，仅域用户可用
+            const freeTimeBtn = document.getElementById('btn-free-time');
+            if (freeTimeBtn) {
+                freeTimeBtn.style.display = this.loginType === 'ad' ? 'inline-flex' : 'none';
+            }
+            
             // 更新查看下级日程按钮的可见性
             setTimeout(() => this.updateSubordinatesButtonVisibility(), 100);
             
@@ -567,6 +573,12 @@ class TodoApp {
                 // 保存登录类型到本地存储
                 localStorage.setItem('loginType', this.loginType);
                 
+                // 控制共同空闲时间按钮显示，仅域用户可用
+                const freeTimeBtn = document.getElementById('btn-free-time');
+                if (freeTimeBtn) {
+                    freeTimeBtn.style.display = this.loginType === 'ad' ? 'inline-flex' : 'none';
+                }
+                
                 // 根据登录类型显示/隐藏修改密码界面
                 this.toggleChangePasswordSection();
                 await this.loadData();
@@ -824,17 +836,29 @@ class TodoApp {
         const el = document.getElementById(hash);
         return el && el.classList.contains('settings-section') ? hash : '';
     }
+    onSettingsSelectChange(selectElement) {
+        const selectedId = selectElement.value;
+        this.showSettingsSection(selectedId);
+    }
+    
     showSettingsSection(id, options = {}) {
         if (!id) return;
         const sections = Array.from(document.querySelectorAll('.settings-section'));
         const links = Array.from(document.querySelectorAll('.settings-nav a[href^="#settings-"]'));
+        const selectElement = document.querySelector('.settings-select-mobile');
+        
         sections.forEach(section => {
             section.style.display = section.id === id ? '' : 'none';
         });
+        
         links.forEach(link => {
             const targetId = (link.getAttribute('href') || '').replace('#', '');
             link.classList.toggle('active', targetId === id);
         });
+        
+        if (selectElement) {
+            selectElement.value = id;
+        }
         this.activeSettingsSection = id;
         if (options.updateHash === false) return;
         const nextHash = `#${id}`;

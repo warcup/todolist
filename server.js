@@ -1598,6 +1598,21 @@ app.post('/api/users/tasks', authenticateJWT, async (req, res) => {
 
 // 计算共同空闲时间
 app.post('/api/common-free-time', authenticateJWT, async (req, res) => {
+    // 检查当前用户类型，仅域用户可用
+    const currentUser = req.user.username;
+    
+    try {
+        const userRows = await dbAll("SELECT user_type FROM users WHERE username = ?", [currentUser]);
+        const userRow = userRows[0];
+        
+        if (!userRow || userRow.user_type !== 'ad') {
+            return res.status(403).json({ error: "只有域用户可以使用共同空闲时间功能" });
+        }
+    } catch (err) {
+        console.error('检查用户类型失败:', err);
+        return res.status(500).json({ error: "服务器错误" });
+    }
+    
     const { usernames, startDate, endDate, workHours } = req.body;
     
     if (!Array.isArray(usernames) || usernames.length === 0) {
